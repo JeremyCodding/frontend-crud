@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Jeremy Paule Pereira",
+            "email": "jeremy.teste@gmail.com",
+            "access_level": "Administrador",
+            "last_access": "2023-03-04" 
+        },
+        {
+            "id": 2,
+            "name": "Alice Silva Almeida",
+            "email": "alice.teste@gmail.com",
+            "access_level": "Administrador",
+            "last_access": "2023-03-04" 
+        }
+    ]
+}
