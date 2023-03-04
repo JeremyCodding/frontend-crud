@@ -14,12 +14,8 @@ function Dashboard(props: Props) {
 
   return (
     <Box
-      data-qa="dashboard"
       sx={{
-        backgroundColor: "background.default",
         display: "flex",
-        height: "100vh",
-        overflow: "hidden",
         width: "100%",
       }}
     >
@@ -27,28 +23,13 @@ function Dashboard(props: Props) {
       <DashboardSidebar />
       <Box
         sx={{
-          display: "flex",
-          flex: "1 1 auto",
-          overflow: "hidden",
-          paddingTop: "64px",
+          width: "100%",
           backgroundColor: "#ccc",
-          p: {
-            lg: "60px",
-          },
+          padding: "50px 50px 0px 50px",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flex: "1 1 auto",
-            overflow: "hidden",
-          }}
-        >
-          <Box sx={{ minHeight: "100%", py: 8, width: "100%" }}>
-            <h1>{title}</h1>
-            {children}
-          </Box>
-        </Box>
+        <h1>{title}</h1>
+        {children}
       </Box>
     </Box>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import { useGetUsers } from "../../hooks";
@@ -37,18 +37,20 @@ function MyTable() {
   const [searchName, setSearchName] = useState("");
 
   const handleSearchChange = (value: string) => {
-    setSearchName(value);
+    setSearchName(value.toLowerCase());
   };
 
   const memberList =
     searchName.trim() !== ""
-      ? data?.filter((member) => member.name.includes(searchName))
+      ? data?.filter((member) => {
+          const memberName = member.name.toLowerCase();
+          return memberName.includes(searchName.toLowerCase());
+        })
       : data;
 
-  console.log(data);
   return (
-    <Box sx={{ backgroundColor: "#fff" }}>
-      <Box my={2} padding={"20px 0 0 20px"}>
+    <Card style={{ borderRadius: "16px" }}>
+      <Box padding={"20px 0 0 20px"}>
         <Typography variant="h6">Membros</Typography>
         <Typography variant="subtitle1">
           Veja quem tem acesso à página e as suas configurações
@@ -72,11 +74,17 @@ function MyTable() {
           Adicionar Membro
         </Button>
       </Box>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: "50vh", width: "100%" }}>
         {isLoading && <div>Carregando...</div>}
-        {!error && <DataGrid rows={memberList || []} columns={columns} />}
+        {!error && (
+          <DataGrid
+            rowsPerPageOptions={[5, 10, 20, 50, 100]}
+            rows={memberList || []}
+            columns={columns}
+          />
+        )}
       </div>
-    </Box>
+    </Card>
   );
 }
 

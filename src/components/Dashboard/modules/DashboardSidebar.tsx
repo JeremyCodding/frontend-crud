@@ -1,5 +1,6 @@
 import { Box, Divider, List } from "@mui/material";
 import PagesList from "./PagesList";
+import logo from "../../../assets/logo.png";
 
 //   import SidebarItems from './SidebarItems'
 
@@ -37,11 +38,13 @@ function Sidebar() {
               marginTop: "64px",
               width: "100%",
               height: "100px",
-              backgroundColor: "#000",
               color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            Colocar logo aqui
+            <img src={logo} style={{ height: "100px" }} alt={"Logo"} />
           </div>
         </Box>
       </Box>

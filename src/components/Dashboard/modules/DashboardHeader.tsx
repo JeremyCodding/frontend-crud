@@ -18,7 +18,7 @@ function DashboardHeader() {
             },
           }}
         >
-          <div>NetworkMe</div>
+          <div style={{ fontWeight: 700, fontSize: "24px" }}>NetworkMe</div>
           <Avatar
             src={""}
             sx={{
