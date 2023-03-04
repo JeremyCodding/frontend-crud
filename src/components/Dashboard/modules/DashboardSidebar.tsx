@@ -1,4 +1,5 @@
-import { Box, Divider, List, ListItem } from "@mui/material";
+import { Box, Divider, List } from "@mui/material";
+import PagesList from "./PagesList";
 
 //   import SidebarItems from './SidebarItems'
 
@@ -47,11 +48,7 @@ function Sidebar() {
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
-          <ListItem>Item um</ListItem>
-          <ListItem>Item dois</ListItem>
-          <ListItem>Item três</ListItem>
-          <ListItem>Item quatro</ListItem>
-          <ListItem>Item cinco</ListItem>
+          <PagesList />
         </List>
       </Box>
     </Box>

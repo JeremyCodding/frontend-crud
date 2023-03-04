@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Dashboard title="Página principal">
+    <Dashboard title="Configurações">
       <Home />
     </Dashboard>
   </React.StrictMode>
