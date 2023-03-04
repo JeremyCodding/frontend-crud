@@ -10,8 +10,8 @@ function Sidebar() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "100%",
         width: "300px",
+        backgroundColor: "lavender",
       }}
     >
       <Box
@@ -37,7 +37,6 @@ function Sidebar() {
             style={{
               marginTop: "64px",
               width: "100%",
-              height: "100px",
               color: "#fff",
               display: "flex",
               alignItems: "center",
@@ -49,7 +48,7 @@ function Sidebar() {
         </Box>
       </Box>
       <Divider />
-      <Box sx={{ p: 2 }}>
+      <Box>
         <List>
           <PagesList />
         </List>

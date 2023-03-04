@@ -17,6 +17,7 @@ function Dashboard(props: Props) {
       sx={{
         display: "flex",
         width: "100%",
+        height: "100vh",
       }}
     >
       <DashboardHeader />
