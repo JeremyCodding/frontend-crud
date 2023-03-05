@@ -11,7 +11,6 @@ function Sidebar() {
         display: "flex",
         flexDirection: "column",
         width: "300px",
-        backgroundColor: "lavender",
       }}
     >
       <Box

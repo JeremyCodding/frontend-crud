@@ -5,6 +5,8 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import { useGetUsers } from "../../hooks";
 import { baseUrl } from "../../constants";
+import Dashboard from "../../components/Dashboard";
+import AddMemberDialog from "./modules/AddMemberDialog";
 
 const columns: GridColDef[] = [
   {
@@ -35,6 +37,7 @@ const columns: GridColDef[] = [
 function MyTable() {
   const { data, isLoading, error } = useGetUsers(`${baseUrl}/users`);
   const [searchName, setSearchName] = useState("");
+  const [addMemberOpen, setAddMemberOpen] = useState(false);
 
   const handleSearchChange = (value: string) => {
     setSearchName(value.toLowerCase());
@@ -49,42 +52,52 @@ function MyTable() {
       : data;
 
   return (
-    <Card style={{ borderRadius: "16px" }}>
-      <Box padding={"20px 0 0 20px"}>
-        <Typography variant="h6">Membros</Typography>
-        <Typography variant="subtitle1">
-          Veja quem tem acesso à página e as suas configurações
-        </Typography>
-      </Box>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        my={2}
-        padding={"20px"}
-      >
-        <TextField
-          sx={{ width: "70%" }}
-          label="Procurar membro"
-          onChange={(e) => handleSearchChange(e.target.value)}
-          variant="outlined"
-        />
-        <Button variant="outlined" color="primary">
-          <GroupAddIcon sx={{ marginRight: "8px" }} />
-          Adicionar Membro
-        </Button>
-      </Box>
-      <div style={{ height: "50vh", width: "100%" }}>
-        {isLoading && <div>Carregando...</div>}
-        {!error && (
-          <DataGrid
-            rowsPerPageOptions={[5, 10, 20, 50, 100]}
-            rows={memberList || []}
-            columns={columns}
+    <Dashboard title="Configurações">
+      <Card style={{ borderRadius: "16px" }}>
+        <Box padding={"20px 0 0 20px"}>
+          <Typography variant="h6">Membros</Typography>
+          <Typography variant="subtitle1">
+            Veja quem tem acesso à página e as suas configurações
+          </Typography>
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          my={2}
+          padding={"20px"}
+        >
+          <TextField
+            sx={{ width: "70%" }}
+            label="Procurar membro"
+            onChange={(e) => handleSearchChange(e.target.value)}
+            variant="outlined"
           />
-        )}
-      </div>
-    </Card>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setAddMemberOpen(true)}
+          >
+            <GroupAddIcon sx={{ marginRight: "8px" }} />
+            Adicionar Membro
+          </Button>
+          <AddMemberDialog
+            isOpen={addMemberOpen}
+            handleOpenClose={setAddMemberOpen}
+          />
+        </Box>
+        <div style={{ height: "50vh", width: "100%" }}>
+          {isLoading && <div>Carregando...</div>}
+          {!error && (
+            <DataGrid
+              rowsPerPageOptions={[5, 10, 20, 50, 100]}
+              rows={memberList || []}
+              columns={columns}
+            />
+          )}
+        </div>
+      </Card>
+    </Dashboard>
   );
 }
 
