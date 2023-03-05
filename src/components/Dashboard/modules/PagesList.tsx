@@ -6,11 +6,12 @@ function PagesList() {
     <>
       {pages.map((page) => (
         <ListItem
+          key={page.id}
           sx={{
             "&:hover": {
-              backgroundColor: "#7ebcfe",
+              backgroundColor: "#1976D2",
+              color: "#fff",
             },
-            borderRadius: "8px",
             display: "flex",
             alignItems: "center",
             marginBottom: "16px",
