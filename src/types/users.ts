@@ -1,7 +1,7 @@
 export type User = {
-    id: number,
+    id: string,
     name: string,
     email: string,
-    access_level: 'Analista' | 'Colaborador' | 'Administrador' | 'Superadministrador'
+    access_level: 'Analista' | 'Colaborador' | 'Administrador' | 'Superadministrador' | null
     last_access: string,
 };
