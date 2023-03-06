@@ -62,6 +62,13 @@
       "access_level": "Colaborador",
       "last_access": "2023-03-06",
       "id": "a28953fa-74ca-4e2e-9afb-e31c1d441b23"
+    },
+    {
+      "name": "Roberto Grave",
+      "email": "bobgrave@gmail.com",
+      "access_level": "Analista",
+      "last_access": "2023-03-06",
+      "id": "0d28d566-a5b0-4a58-a6de-f97b9e31ab48"
     }
   ]
 }

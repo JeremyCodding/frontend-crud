@@ -13,10 +13,11 @@ import {
   Typography,
 } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { accessLevelsList } from "../../../constants";
 import { addMember } from "../../../api";
 import { v4 as uuidv4 } from "uuid";
+import { validateForm } from "../helper";
 
 export type AddMemberProps = {
   isOpen: boolean;
@@ -40,11 +41,18 @@ const initialState = {
   access_level: null,
 };
 
+const initialError = {
+  name: "",
+  nameLength: "",
+  email: "",
+  access_level: "",
+};
+
 function AddMemberDialog(props: AddMemberProps) {
   const { isOpen, handleOpenClose } = props;
 
   const [formData, setFormData] = useState<FormData>(initialState);
-  const [errors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<typeof initialError>(initialError);
   //TODO: Implementar validação
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,23 +60,29 @@ function AddMemberDialog(props: AddMemberProps) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData);
-    const todayDate = new Date().toISOString().slice(0, 10);
-    const payload = {
-      ...formData,
-      last_access: todayDate,
-      id: uuidv4(),
-    };
-    if (payload.access_level !== null && payload.name.length >= 3) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    setErrors(initialError);
+    const validation = validateForm(formData);
+
+    if (Object.values(validation).every((value) => value === "")) {
+      const todayDate = new Date().toISOString().slice(0, 10);
+      const payload = {
+        ...formData,
+        last_access: todayDate,
+        id: uuidv4(),
+      };
       addMember(payload);
       handleCloseDialog();
+    } else {
+      event.preventDefault();
+      setErrors(validation);
+      return;
     }
   };
 
   const handleCloseDialog = () => {
     setFormData(initialState);
+    setErrors(initialError);
     handleOpenClose(false);
   };
 
@@ -102,7 +116,7 @@ function AddMemberDialog(props: AddMemberProps) {
           Adicione membros da sua equipe e dê-lhes acesso à plataforma
           empresarial da sua empresa
         </DialogContentText>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <Box
             sx={{
               display: "flex",
@@ -119,6 +133,16 @@ function AddMemberDialog(props: AddMemberProps) {
               helperText={errors.name}
               fullWidth
             />
+            {errors.nameLength !== "" && (
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  color: "red",
+                }}
+              >
+                {errors.nameLength}
+              </Typography>
+            )}
             <TextField
               label="Email"
               name="email"
@@ -141,6 +165,16 @@ function AddMemberDialog(props: AddMemberProps) {
               >
                 Nível de acesso:
               </FormLabel>
+              {errors.access_level && (
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    color: "red",
+                  }}
+                >
+                  {errors.access_level}
+                </Typography>
+              )}
               <RadioGroup
                 aria-label="access-level"
                 name="access_level"
