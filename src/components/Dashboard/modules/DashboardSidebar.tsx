@@ -1,8 +1,6 @@
-import { Box, Divider, List } from "@mui/material";
+import { Box, Button, Divider, List, Typography } from "@mui/material";
 import PagesList from "./PagesList";
 import logo from "../../../assets/logo.png";
-
-//   import SidebarItems from './SidebarItems'
 
 function Sidebar() {
   return (
@@ -42,7 +40,7 @@ function Sidebar() {
               justifyContent: "center",
             }}
           >
-            <img src={logo} style={{ height: "100px" }} alt={"Logo"} />
+            <img src={logo} style={{ height: "80px" }} alt={"Logo"} />
           </div>
         </Box>
       </Box>
@@ -51,6 +49,33 @@ function Sidebar() {
         <List>
           <PagesList />
         </List>
+      </Box>
+      <Divider />
+      <Box
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+          padding: "8px",
+        }}
+      >
+        <Typography
+          style={{
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
+        >
+          Precisa de ajuda?
+        </Typography>
+        <Typography
+          style={{
+            fontSize: "12px",
+          }}
+        >
+          Envie-nos uma mensagem ou marque uma chamada.
+        </Typography>
+        <Button variant="contained">CONTACTO</Button>
       </Box>
     </Box>
   );

@@ -14,7 +14,7 @@ function PagesList() {
             },
             display: "flex",
             alignItems: "center",
-            marginBottom: "16px",
+            marginBottom: "4px",
             cursor: "pointer",
           }}
         >
