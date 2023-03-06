@@ -7,40 +7,58 @@ import { useGetUsers } from "../../hooks";
 import { baseUrl } from "../../constants";
 import Dashboard from "../../components/Dashboard";
 import AddMemberDialog from "./modules/AddMemberDialog";
-
-const columns: GridColDef[] = [
-  {
-    field: "",
-    headerName: "Editar",
-    width: 100,
-    renderCell: (params) => (
-      <Box display="flex" alignItems="center">
-        <Typography>{params.value}</Typography>
-        <Button variant="outlined" color="primary" size="small">
-          <EditIcon />
-        </Button>
-      </Box>
-    ),
-  },
-  { field: "name", headerName: "Nome", width: 200 },
-  { field: "email", headerName: "email", width: 200 },
-  { field: "access_level", headerName: "Nível de acesso", width: 200 },
-  {
-    field: "last_access",
-    headerName: "Acedeu",
-    width: 130,
-    renderCell: (params: GridCellParams) =>
-      new Date(params.value as string).toLocaleDateString("pt-BR"),
-  },
-];
+import UpdateMemberDialog from "./modules/UpdateMemberDialog";
+import { User } from "../../types";
 
 function MyTable() {
   const { data, isLoading, error } = useGetUsers(`${baseUrl}/users`);
   const [searchName, setSearchName] = useState("");
   const [addMemberOpen, setAddMemberOpen] = useState(false);
+  const [updateMemberOpen, setUpdateMemberOpen] = useState(false);
+  const [memberData, setMemberData] = useState<User>();
+
+  const columns: GridColDef[] = [
+    {
+      field: "",
+      headerName: "Editar",
+      width: 100,
+      renderCell: (params) => (
+        <Box display="flex" alignItems="center">
+          <Button
+            variant="text"
+            color="primary"
+            size="small"
+            onClick={() => handleUpdateDialog(params.row)}
+            sx={{
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            }}
+          >
+            <EditIcon />
+          </Button>
+        </Box>
+      ),
+    },
+    { field: "name", headerName: "Nome", width: 200 },
+    { field: "email", headerName: "email", width: 200 },
+    { field: "access_level", headerName: "Nível de acesso", width: 200 },
+    {
+      field: "last_access",
+      headerName: "Acedeu",
+      width: 130,
+      renderCell: (params: GridCellParams) =>
+        new Date(params.value as string).toLocaleDateString("pt-BR"),
+    },
+  ];
 
   const handleSearchChange = (value: string) => {
     setSearchName(value.toLowerCase());
+  };
+
+  const handleUpdateDialog = (member: User) => {
+    setMemberData(member);
+    setUpdateMemberOpen(true);
   };
 
   const memberList =
@@ -97,6 +115,11 @@ function MyTable() {
           )}
         </div>
       </Card>
+      <UpdateMemberDialog
+        user={memberData}
+        isOpen={updateMemberOpen}
+        handleOpenClose={setUpdateMemberOpen}
+      />
     </Dashboard>
   );
 }
