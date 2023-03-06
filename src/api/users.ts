@@ -37,7 +37,7 @@ const addMember = async (user: User): Promise<void> => {
       .then(response => response.json())
   };
   
-  const deleteMembers = async (id: number): Promise<void> => {
+  const deleteMembers = async (id: string): Promise<void> => {
     return fetch(`${baseUrl}/users/${id}`, {
       method: 'DELETE'
     })

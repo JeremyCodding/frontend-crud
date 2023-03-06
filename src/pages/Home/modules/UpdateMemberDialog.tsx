@@ -18,6 +18,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { accessLevelsList } from "../../../constants";
 import { updateMembers } from "../../../api";
 import { User } from "../../../types";
+import DeleteMemberDialog from "./DeleteMemberDialog";
 
 export type AddMemberProps = {
   user: User | undefined;
@@ -42,6 +43,7 @@ function UpdateMemberDialog(props: AddMemberProps) {
 
   const [formData, setFormData] = useState<User>(user ?? initialState);
   const [errors] = useState<Partial<User>>({});
+  const [deleteMemberOpen, setDeleteMemberOpen] = useState(false);
 
   useEffect(() => {
     user && setFormData(user);
@@ -163,7 +165,7 @@ function UpdateMemberDialog(props: AddMemberProps) {
           >
             <Button
               variant="outlined"
-              onClick={() => handleCloseDialog()}
+              onClick={() => setDeleteMemberOpen(true)}
               color="error"
             >
               <DeleteIcon />
@@ -180,6 +182,12 @@ function UpdateMemberDialog(props: AddMemberProps) {
           </Box>
         </form>
       </DialogContent>
+      <DeleteMemberDialog
+        user={user}
+        closeAll={handleOpenClose}
+        handleOpenClose={setDeleteMemberOpen}
+        isOpen={deleteMemberOpen}
+      />
     </Dialog>
   );
 }
