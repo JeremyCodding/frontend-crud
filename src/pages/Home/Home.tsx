@@ -5,7 +5,6 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import { useGetUsers } from "../../hooks";
 import { baseUrl } from "../../constants";
-import Dashboard from "../../components/Dashboard";
 import AddMemberDialog from "./modules/AddMemberDialog";
 import UpdateMemberDialog from "./modules/UpdateMemberDialog";
 import { User } from "../../types";
@@ -70,7 +69,15 @@ function MyTable() {
       : data;
 
   return (
-    <Dashboard title="Configurações">
+    <Box>
+      <Typography
+        style={{
+          fontSize: "36px",
+          fontWeight: "bold",
+        }}
+      >
+        Configurações
+      </Typography>
       <Card style={{ borderRadius: "16px" }}>
         <Box padding={"20px 0 0 20px"}>
           <Typography variant="h6">Membros</Typography>
@@ -104,7 +111,7 @@ function MyTable() {
             handleOpenClose={setAddMemberOpen}
           />
         </Box>
-        <div style={{ height: "50vh", width: "100%" }}>
+        <div style={{ height: "50vh" }}>
           {isLoading && <div>Carregando...</div>}
           {!error && (
             <DataGrid
@@ -120,7 +127,7 @@ function MyTable() {
         isOpen={updateMemberOpen}
         handleOpenClose={setUpdateMemberOpen}
       />
-    </Dashboard>
+    </Box>
   );
 }
 

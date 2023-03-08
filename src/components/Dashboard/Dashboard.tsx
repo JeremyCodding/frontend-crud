@@ -1,23 +1,17 @@
 import { Box } from "@mui/material";
-import { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 
 import DashboardHeader from "./modules/DashboardHeader";
 import DashboardSidebar from "./modules/DashboardSidebar";
 
-type Props = {
-  children: ReactNode;
-  title: string;
-};
-
-function Dashboard(props: Props) {
-  const { children, title } = props;
-
+function Dashboard() {
   return (
     <Box
       sx={{
         display: "flex",
         width: "100%",
         height: "100vh",
+        position: "relative",
       }}
     >
       <DashboardHeader />
@@ -26,11 +20,10 @@ function Dashboard(props: Props) {
         sx={{
           width: "100%",
           backgroundColor: "#ccc",
-          padding: "50px 50px 0px 50px",
+          padding: "70px 50px 0px 50px",
         }}
       >
-        <h1>{title}</h1>
-        {children}
+        <Outlet />
       </Box>
     </Box>
   );
