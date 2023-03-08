@@ -34,6 +34,25 @@ const initialState = {
   id: "",
 };
 
+const PersonIconComponent = () => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: "#c9e3fe",
+        borderRadius: "50%",
+        display: "flex",
+        width: "40px",
+        height: "40px",
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: "16px",
+      }}
+    >
+      <PersonIcon color="primary" />
+    </Box>
+  );
+};
+
 function UpdateMemberDialog(props: AddMemberProps) {
   const { isOpen, handleOpenClose, user } = props;
 
@@ -83,20 +102,7 @@ function UpdateMemberDialog(props: AddMemberProps) {
             justifyContent: "space-between",
           }}
         >
-          <Box
-            sx={{
-              backgroundColor: "#c9e3fe",
-              borderRadius: "50%",
-              display: "flex",
-              width: "40px",
-              height: "40px",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: "16px",
-            }}
-          >
-            <PersonIcon color="primary" />
-          </Box>
+          <PersonIconComponent />
           <Typography>Editar nível de acesso:</Typography>
         </Box>
         <Button
@@ -110,14 +116,27 @@ function UpdateMemberDialog(props: AddMemberProps) {
         <DialogContentText style={{ fontSize: "0.875rem" }}></DialogContentText>
         <form onSubmit={handleUpdateMember}>
           <Box
-            sx={{
+            style={{
               display: "flex",
-              flexDirection: "column",
-              gap: "8px",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <Typography>{user?.name}</Typography>
-            <Typography>{user?.email}</Typography>
+            <PersonIconComponent />
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "8px",
+                margin: "16px",
+              }}
+            >
+              <Typography style={{ fontSize: "1.25rem" }}>
+                {user?.name}
+              </Typography>
+              <Typography>{user?.email}</Typography>
+            </Box>
           </Box>
           <Box>
             <FormControl
